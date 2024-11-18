@@ -17,7 +17,7 @@ interface AjnaLiquidatorLike {
 contract AjnaLiquidationHook is BaseHook {
     using PoolIdLibrary for PoolKey;
 
-    AjnaLiquidator public liquidator;
+    AjnaLiquidatorLike public liquidator;
 
     // NOTE: ---------------------------------------------------------
     // state variables should typically be unique to a pool
