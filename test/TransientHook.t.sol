@@ -19,7 +19,9 @@ import {IPositionManager} from "v4-periphery/src/interfaces/IPositionManager.sol
 import {EasyPosm} from "./utils/EasyPosm.sol";
 import {Fixtures} from "./utils/Fixtures.sol";
 
-contract CounterTest is Test, Fixtures {
+import {AjnaLiquidationHook} from "../src/AjnaLiquidationHook.sol";
+
+contract GeneralLiquidationTest is Test, Fixtures {
     using EasyPosm for IPositionManager;
     using PoolIdLibrary for PoolKey;
     using CurrencyLibrary for Currency;
@@ -82,6 +84,8 @@ contract CounterTest is Test, Fixtures {
     }
 
     function testCounterHooks() public {
+        tstore(0, 1);
+
         // positions were created in setup()
         assertEq(hook.beforeAddLiquidityCount(poolId), 1);
         assertEq(hook.beforeRemoveLiquidityCount(poolId), 0);
@@ -99,6 +103,8 @@ contract CounterTest is Test, Fixtures {
 
         assertEq(hook.beforeSwapCount(poolId), 1);
         assertEq(hook.afterSwapCount(poolId), 1);
+
+        tload(0);
     }
 
     function testLiquidityHooks() public {
